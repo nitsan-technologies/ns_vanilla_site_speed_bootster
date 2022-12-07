@@ -1,0 +1,29 @@
+{
+  "name": "@nitsan/vanilla-site-speed-booster",
+  "version": "1.0.0",
+  "description": "Vanill Site Speed Booster",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitsan-technologies/ns_vanilla_site_speed_bootster.git"
+  },
+  "keywords": [
+    "website",
+    "speed",
+    "booster",
+    "cache",
+    "faster",
+    "reload",
+    "vanilla",
+    "javascript"
+  ],
+  "author": "Team NITSAN",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nitsan-technologies/ns_vanilla_site_speed_bootster/issues"
+  },
+  "homepage": "https://github.com/nitsan-technologies/ns_vanilla_site_speed_bootster#readme"
+}
