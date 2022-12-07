@@ -1,2 +1,3 @@
-# vanilla-site-speed-bootster
+# vanilla-site-speed-booster
+
 Vanilla Site Speed Booster
