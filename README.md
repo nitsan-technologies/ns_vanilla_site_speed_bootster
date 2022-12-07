@@ -1,2 +1,2 @@
-# ns_vanilla_site_speed_bootster
+# vanilla-site-speed-bootster
 Vanilla Site Speed Booster
