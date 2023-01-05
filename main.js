@@ -77,6 +77,7 @@ class VanillaSiteSpeedBooster {
             }
 
             const url = event.target.href;
+            window.history.pushState(null, null, url);
             fetch(url, {cache: "force-cache"}).then((response) => response.text()).then((html) => {
               /* Change Content of Main */
               const parser = new DOMParser();
@@ -85,10 +86,13 @@ class VanillaSiteSpeedBooster {
               const langLink = document.querySelector(`${this.options.langSwitch}`);
               mainSection.classList.add('fade');
               setTimeout(() => {
-                mainSection.innerHTML = mainContent.innerHTML;
-                mainSection.className = mainContent.className;
-                window.history.pushState(null, null, url);
-                document.querySelector('title').innerHTML = doc.title;
+                if (mainContent) {
+                  mainSection.innerHTML = mainContent.innerHTML;
+                  mainSection.className = mainContent.className;                  
+                }
+                if (doc.title) {
+                  document.querySelector('title').innerHTML = doc.title;                  
+                }
 
                 if (langLink.href && doc.querySelector(`${this.options.langSwitch}`) && doc.querySelector(`${this.options.langSwitch}`).href) {
                   langLink.href = doc.querySelector(`${this.options.langSwitch}`).href;
