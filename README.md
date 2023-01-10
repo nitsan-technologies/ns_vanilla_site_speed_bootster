@@ -1,8 +1,9 @@
-# vanilla-site-speed-booster 
+# vanilla-site-speed-booster
 
 > Boostup your website without any modern FancyJS framework like ReactJS, VueJS etc., Your website will get best speed & user experiance with features like Without reloading site, Dynamically apply AJAX etc.
 
 **Features**:
+
 - Speed-up your website
 - Light weight plugin (~5KB)
 - Zero-coding
@@ -10,6 +11,7 @@
 - Quickly launch with simple usage
 
 **Advantages**:
+
 - Best user-experiance to website visitors
 - Just like Mobile native app
 - Sped-up your website
@@ -43,38 +45,42 @@ Then with a module bundler like rollup or webpack, use as you would anything els
 
 ```javascript
 // using ES6 modules
-import VanillaSiteSpeedBooster from '@nitsantechnologies/vanilla-site-speed-booster';
+import VanillaSiteSpeedBooster from "@nitsantechnologies/vanilla-site-speed-booster";
 
 // using CommonJS modules
 const yourVariable = new VanillaSiteSpeedBooster({
-
   // If you need progress bar then enabled, We use famous nprogress.js (know more at below FAQ section)
   enableProgressBar: false,
 
   // Set Id's of your Bundlejs script tag (know more at below usage section)
-  idBundleJs: 'pageAjax',
+  idBundleJs: "pageAjax",
 
   // Enter list of URLs which you want to exclude - Remove this speed-booster feature
-  excludeUrls: '/exclude-page',
+  excludeUrls: "/exclude-page",
 
   // Enter list of CSS-selector which you want to exclude of Anchor tag - Remove this speed-booster feature
-  langSwitch: '.myElement a',
+  langSwitch: ".myElement a",
 
   // Enter list of CSS-selector which you want to exclude from whole page - Remove this speed-booster feature
-  removeUsingPageClass: '.myCustomPageClass',
+  removeUsingPageClass: ".myCustomPageClass",
 
   // Add Error Message
-  errorMsg: 'Oops! Fatal error in VanillaSiteSpeedBooster plugin',
+  errorMsg: "Oops! Fatal error in VanillaSiteSpeedBooster plugin",
 
   // CSS-class name of your site's Main div-wrapper
-  mainClassName: '.site-main',
+  mainClassName: ".site-main",
 
   // Enable/Disable Browser's back & forward feature
   pageBackForwardReload: true,
 
   // If you have remove this functionality by target specific class
-  removeUsingTargetClass: 'lang-menu-item',
+  removeUsingTargetClass: "lang-menu-item",
 });
+```
+
+```css
+  /* Please import CSS from Plugin for Animations and better functionality*/  
+  @import '~@nitsantechnologies/vanilla-site-speed-booster/main.css';
 ```
 
 ## Browser Support

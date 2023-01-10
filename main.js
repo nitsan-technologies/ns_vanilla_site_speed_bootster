@@ -46,7 +46,7 @@ class VanillaSiteSpeedBooster {
 
       document.addEventListener('click', (event) => {
         if (event.target.tagName === 'A' && !event.target.hasAttribute('target') && !event.target.hasAttribute('data-fancybox')  && !event.target.hasAttribute('data-bs-toggle', 'modal') && !event.target.hasAttribute('data-glightbox') && !event.target.hasAttribute('data-darkbox') && !event.target.className.includes('cboxElement') ) {
-          if (event.target.href.split('#').length === 1 && event.target.href.indexOf(`${this.options.excludeUrls}`) === -1 && !event.target.className.includes(this.options.removeUsingTargetClass)) {
+          if (!event.target.href.includes('javascript:;') && event.target.href.split('#').length === 1 && event.target.href.indexOf(`${this.options.excludeUrls}`) === -1 && !event.target.className.includes(this.options.removeUsingTargetClass)) {
             event.preventDefault();
             document.body.classList.add('ns-website-content');
             if (this.options.enableProgressBar) {
@@ -56,11 +56,12 @@ class VanillaSiteSpeedBooster {
                 showSpinner: false,
               });
               NProgress.start();
-              /* Scroll Top Of The Page */
-              window.scroll({
-                top: 0,
-              });
             }
+
+            /* Scroll Top Of The Page */
+            window.scroll({
+              top: 0,
+            });
 
             if (this.options.headerCollapse) {
               const menuTrigger = document.querySelector('#menuTrigger');
@@ -88,13 +89,13 @@ class VanillaSiteSpeedBooster {
               setTimeout(() => {
                 if (mainContent) {
                   mainSection.innerHTML = mainContent.innerHTML;
-                  mainSection.className = mainContent.className;                  
+                  mainSection.className = mainContent.className;
                 }
                 if (doc.title) {
-                  document.querySelector('title').innerHTML = doc.title;                  
+                  document.querySelector('title').innerHTML = doc.title;
                 }
 
-                if (langLink.href && doc.querySelector(`${this.options.langSwitch}`) && doc.querySelector(`${this.options.langSwitch}`).href) {
+                if (langLink && langLink.href && doc.querySelector(`${this.options.langSwitch}`) && doc.querySelector(`${this.options.langSwitch}`).href) {
                   langLink.href = doc.querySelector(`${this.options.langSwitch}`).href;
                 }
 
