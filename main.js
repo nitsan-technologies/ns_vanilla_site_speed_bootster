@@ -8,7 +8,8 @@ class VanillaSiteSpeedBooster {
       mainClassName: '.site-main',
       pageBackForwardReload: true,
       removeUsingPageClass: '.offer-page-header',
-      removeUsingTargetClass: 'lang-menu-item',
+      removeUsingTargetClass: ['exclude-ajax-link', 'lang-menu-item'],
+      removeWithoutReloadUsingTargetClass: ['exclude-ajax-link', 'lang-menu-item'],
       errorMsg: 'Something is went wrong for NsWebsiteWithoutReload plugin',
       headerCollapse: false,
     };
@@ -21,6 +22,35 @@ class VanillaSiteSpeedBooster {
     if (!document.body.className.includes('ns-website-content')) {
       this.init();
     }
+  }
+
+  checkExcludeLinks(currentClassName, arrRemoveClass) {
+    var isExclude = false;
+    if(currentClassName != '') {
+      const arrExcludeClass = currentClassName.split(' ');
+      if(arrExcludeClass.length) {
+        arrExcludeClass.map((isClassName, index) => {
+          if(arrRemoveClass.includes(isClassName.replace(/\s/g, ''))) {
+            isExclude = true;
+          }
+        });
+      }
+    }
+    return isExclude;
+  }
+  checkExcludeWithoutReloadLinks(currentClassName, arrRemoveClass) {
+    var isWithOutReloadExclude = false;
+    if(currentClassName != '') {
+      const arrExcludeClass = currentClassName.split(' ');
+      if(arrExcludeClass.length) {
+        arrExcludeClass.map((isClassName, index) => {
+          if(arrRemoveClass.includes(isClassName.replace(/\s/g, ''))) {
+            isWithOutReloadExclude = true;
+          }
+        });
+      }
+    }
+    return isWithOutReloadExclude;
   }
 
   init() {
@@ -44,9 +74,15 @@ class VanillaSiteSpeedBooster {
         }
       });
 
-      document.addEventListener('click', (event) => {
-        if (event.target.tagName === 'A' && !event.target.hasAttribute('target') && !event.target.hasAttribute('data-fancybox')  && !event.target.hasAttribute('data-bs-toggle', 'modal') && !event.target.hasAttribute('data-glightbox') && !event.target.hasAttribute('data-darkbox') && !event.target.className.includes('cboxElement') ) {
-          if (!event.target.href.includes('javascript:;') && event.target.href.split('#').length === 1 && event.target.href.indexOf(`${this.options.excludeUrls}`) === -1 && !event.target.className.includes(this.options.removeUsingTargetClass)) {
+      document.addEventListener('click', (event) => { 
+        if (event.target.href && !event.target.href.includes('tel:') && !event.target.href.includes('mailto:') && event.target.tagName === 'A' && !event.target.hasAttribute('target') && !event.target.hasAttribute('data-fancybox') && !event.target.hasAttribute('data-bs-toggle', 'modal') && !event.target.hasAttribute('data-glightbox') && !event.target.hasAttribute('data-darkbox') && !event.target.className.includes('cboxElement') ) {
+          // Let's check for exclude links
+          const isExcludeClass = this.checkExcludeLinks(event.target.className, this.options.removeUsingTargetClass);
+          const isWithoutReloadExcludeClass = this.checkExcludeLinks(event.target.className, this.options.removeWithoutReloadUsingTargetClass);
+          // Let's redirect to exclude links and #-links
+          if (event.target.getAttribute('href').charAt(0) !== '#' && isExcludeClass && !isWithoutReloadExcludeClass) {
+            window.location.href = event.target.href;
+          } else if (!event.target.href.includes('javascript:;') && event.target.href.split('#').length === 1 && event.target.href.indexOf(`${this.options.excludeUrls}`) === -1 && !isExcludeClass && !isWithoutReloadExcludeClass) {
             event.preventDefault();
             document.body.classList.add('ns-website-content');
             if (this.options.enableProgressBar) {
@@ -114,8 +150,10 @@ class VanillaSiteSpeedBooster {
             }).catch((err) => {
                 console.warn(this.options.errorMsg, err);
               });
-          } else if (event.target.getAttribute('href').charAt(0) !== '#' && event.target.className === 'lang-menu-item') {
-            window.location.href = event.target.href;
+          } else if (event.target.getAttribute('href').charAt(0) == '#') {
+            event.preventDefault();
+            window.history.pushState(null, null, event.target.getAttribute('href'));
+            document.querySelector(event.target.getAttribute('href')).scrollIntoView()
           }
         }
       });

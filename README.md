@@ -73,8 +73,11 @@ const yourVariable = new VanillaSiteSpeedBooster({
   // Enable/Disable Browser's back & forward feature
   pageBackForwardReload: true,
 
-  // If you have remove this functionality by target specific class
-  removeUsingTargetClass: "lang-menu-item",
+  // If you have remove this functionality by target specific <A> Tag class
+  removeUsingTargetClass: ['exclude-ajax-link', 'lang-menu-item'],
+
+  // If you have remove this functionality by target specific <A> Tag class
+  removeWithoutReloadUsingTargetClass: ['exclude-ajax-link', 'lang-menu-item'],
 });
 ```
 
