@@ -32,7 +32,7 @@
 ## Install
 
 ```sh
-# You can install lozad with npm
+# You can install Speed Booster with npm
 $ npm i @nitsantechnologies/vanilla-site-speed-booster
 
 # Alternatively you can use Yarn
